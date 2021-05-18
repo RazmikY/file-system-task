@@ -2,4 +2,9 @@
     height: 27px;
     display: grid;
     grid-template-columns: 40% 20% 20% auto;
+    align-content: center;
+    cursor: pointer;
+}
+.selected {
+    border: 1px solid blue;
 }

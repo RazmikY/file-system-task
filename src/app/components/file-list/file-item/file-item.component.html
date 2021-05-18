@@ -1,4 +1,9 @@
-<div class="file-item" (dblclick)="openItem()" (click)="selectItem()">
+<div
+    class="file-item"
+    (dblclick)="openItem()"
+    (click)="selectItem()"
+    [class.selected]="selected"
+>
     <div>
         <app-file-icon [type]="fileData.type"></app-file-icon>
         {{ fileData?.path }}

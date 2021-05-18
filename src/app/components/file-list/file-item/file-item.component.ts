@@ -3,6 +3,8 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     Input,
+    Output,
+    EventEmitter,
 } from '@angular/core';
 
 import { FileData } from 'src/app/shared/models/filedData';
@@ -15,15 +17,18 @@ import { FileData } from 'src/app/shared/models/filedData';
 })
 export class FileItemComponent implements OnInit {
     @Input() fileData: FileData;
+    @Input() selected: boolean;
+    @Output() getNestedData = new EventEmitter();
+    @Output() selectCurrentData = new EventEmitter();
     constructor() {}
 
     ngOnInit(): void {}
 
     openItem(): void {
-        console.log('object');
+        this.getNestedData.emit();
     }
 
     selectItem() {
-        console.log('item');
+        this.selectCurrentData.emit();
     }
 }

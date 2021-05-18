@@ -1,4 +1,7 @@
 <app-file-item
-    *ngFor="let item of fileData$ | async"
+    *ngFor="let item of fileData$ | async; let index = index"
     [fileData]="item"
+    (getNestedData)="getNestedData(item)"
+    (selectCurrentData)="selectCurrentData(index)"
+    [selected]="selectedItemIndex === index"
 ></app-file-item>
