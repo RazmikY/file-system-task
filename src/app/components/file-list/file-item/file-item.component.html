@@ -1,0 +1,12 @@
+<div class="file-item" (dblclick)="openItem()" (click)="selectItem()">
+    <div>
+        <app-file-icon [type]="fileData.type"></app-file-icon>
+        {{ fileData?.path }}
+    </div>
+    <div>{{ fileData?.modificationDate | date: "dd/MM/yyy H:mm a" }}</div>
+    <div>{{ fileData?.type | fileType }}</div>
+    <div>
+        {{ fileData?.size }}
+        <ng-container *ngIf="fileData?.size"> KB</ng-container>
+    </div>
+</div>
