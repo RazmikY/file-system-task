@@ -1,4 +1,4 @@
-.file-item {
+.container {
     width: 800px;
     height: 27px;
     display: grid;
@@ -8,13 +8,6 @@
 
     > div {
         padding-left: 0.3rem;
+        border-right: 1px solid black;
     }
-
-    > div:last-child {
-        text-align: right;
-        padding-right: 0.3rem;
-    }
-}
-.selected {
-    border: 1px solid blue;
 }

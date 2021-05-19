@@ -16,6 +16,11 @@ export class CoreService {
     currentDirectory$: BehaviorSubject<string> = new BehaviorSubject(
         'univercity' ?? localStorage.getItem('currentDirectory')
     );
+
+    currentDirectoryIndex$: BehaviorSubject<number> = new BehaviorSubject(
+        0 ?? +localStorage.getItem('currentDirectoryIndex')
+    );
+
     constructor() {}
 
     getData(): Observable<FileData[]> {
@@ -29,5 +34,10 @@ export class CoreService {
 
     setCurrentDirectory(path: string): void {
         localStorage.setItem('currentDirectory', path);
+    }
+
+    setCurrentDirectoryIndex(index: number): void {
+        console.log(index);
+        localStorage.setItem('currentDirectoryIndex', index.toString());
     }
 }
