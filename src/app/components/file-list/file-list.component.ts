@@ -3,6 +3,7 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     OnDestroy,
+    ChangeDetectorRef,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
@@ -21,7 +22,7 @@ export class FileListComponent implements OnInit, OnDestroy {
     selectedItemIndex = -1;
     private sub = new Subscription();
 
-    constructor(private coreService: CoreService) {}
+    constructor(private coreService: CoreService, private cd: ChangeDetectorRef) {}
 
     ngOnInit(): void {
         this.getFileData();
@@ -36,38 +37,29 @@ export class FileListComponent implements OnInit, OnDestroy {
                         this.getCurrentDirectoryData(data)
                     )
                 )
-                .subscribe((data) => (this.fileData = data))
+                .subscribe((data) => {
+                    this.fileData = data
+                    this.cd.detectChanges();
+                })
         );
     }
 
     getCurrentDirectoryData(data: FileData[]): FileData[] {
         const currentDirectory = this.coreService.currentDirectory$.getValue();
-        return data.filter((item) => {
-            return this.newArray(currentDirectory, item.path);
-        });
-    }
-
-    newArray(a: string, b: string): boolean {
-        let currIndex = this.coreService.currentDirectoryIndex$.getValue();
-        let mainPath = a.split('/');
-        let pathForCheck = b.split('/');
-        console.log(b, pathForCheck.length, currIndex);
-        let cond = pathForCheck.length === ++currIndex;
-        this.coreService.setCurrentDirectoryIndex(currIndex);
-        return cond;
+        // return data?.filter((item) => {
+        //     return this.newArray(currentDirectory, item?.path);
+        // });
+        return data
     }
 
     getNestedData(item: FileData): void {
         this.setNewPath(item);
-        // let index = this.coreService.currentDirectoryIndex$.getValue();
-        // this.coreService.setCurrentDirectoryIndex(index++);
         this.getFileData();
     }
 
     setNewPath(item: FileData): void {
         const path = item.path;
-        const currentPath = path.replaceAll('/', ' > ');
-        this.coreService.setCurrentPath(currentPath);
+        this.coreService.setCurrentPath(path);
     }
 
     selectCurrentData(index: number): void {

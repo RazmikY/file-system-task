@@ -5,7 +5,7 @@
     [class.selected]="selected"
 >
     <div>
-        <app-file-icon [type]="fileData.type"></app-file-icon>
+        <app-file-icon [type]="fileData?.type"></app-file-icon>
         {{ fileData?.path }}
     </div>
     <div>{{ fileData?.modificationDate | date: "dd/MM/yyy H:mm a" }}</div>

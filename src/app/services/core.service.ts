@@ -1,15 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
-import * as db from '../../assets/db/db.json';
 import { FileData } from '../shared/models/filedData';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CoreService {
-    private db: any = db;
     currentPath$: BehaviorSubject<string> = new BehaviorSubject(
         localStorage.getItem('currentPath')
     );
@@ -17,15 +16,30 @@ export class CoreService {
         'univercity' ?? localStorage.getItem('currentDirectory')
     );
 
-    currentDirectoryIndex$: BehaviorSubject<number> = new BehaviorSubject(
-        0 ?? +localStorage.getItem('currentDirectoryIndex')
-    );
-
-    constructor() {}
+    constructor(private http: HttpClient) {}
 
     getData(): Observable<FileData[]> {
-        const data = this.db.default;
-        return of(data);
+        return this.http.get<any>('../../assets/db/db.json').pipe(
+            map((data: FileData[]) => this.transformData(data)),
+        )
+    }
+
+    transformData(data: FileData[]): any {
+        return data.map(item => this.splitPath(item)).map(item => ({
+            ...item,
+            childrem: []
+        })).map(ele => console.log(ele.path))
+    }
+
+    splitPath(item: any): any {
+        item.path = item.path.split('/');
+        return item
+    }
+
+    groupData(data: any[], path: string): any {
+        return data.reduce((acc: any, inc) => {
+            return acc['childrem'].push(inc)
+        });
     }
 
     setCurrentPath(path: string): void {
@@ -34,10 +48,5 @@ export class CoreService {
 
     setCurrentDirectory(path: string): void {
         localStorage.setItem('currentDirectory', path);
-    }
-
-    setCurrentDirectoryIndex(index: number): void {
-        console.log(index);
-        localStorage.setItem('currentDirectoryIndex', index.toString());
     }
 }
