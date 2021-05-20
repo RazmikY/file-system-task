@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, shareReplay, tap } from 'rxjs/operators';
 
 import { FileData } from '../shared/models/filedData';
 
@@ -9,35 +9,26 @@ import { FileData } from '../shared/models/filedData';
     providedIn: 'root',
 })
 export class CoreService {
-    currentPath$: BehaviorSubject<string> = new BehaviorSubject(
-        sessionStorage.getItem('currentPath')
-    );
-    currentDirectory$: BehaviorSubject<string> = new BehaviorSubject(
-        'univercity' ?? sessionStorage.getItem('currentDirectory')
-    );
-
-    currentIndex$ = new BehaviorSubject<number>(
-        1 ?? +sessionStorage.getItem('currentIndex')
-    );
+    currentPath$: BehaviorSubject<string> = new BehaviorSubject(null);
+    currentIndex$ = new BehaviorSubject<number>(0);
+    fileData: FileData[] = [];
 
     constructor(private http: HttpClient) {}
 
     getData(): Observable<FileData[]> {
-        return this.http.get<any>('../../assets/db/db.json');
+        if (this.fileData.length) {
+            return of(this.fileData);
+        }
+        return this.http
+            .get<FileData[]>('../../assets/db/db.json')
+            .pipe(tap((val) => (this.fileData = val)));
     }
 
     setCurrentPath(path: string): void {
         this.currentPath$.next(path);
-        sessionStorage.setItem('currentPath', path);
-    }
-
-    setCurrentDirectory(path: string): void {
-        this.currentDirectory$.next(path);
-        sessionStorage.setItem('currentDirectory', path);
     }
 
     setCurrentIndex(index: number): void {
         this.currentIndex$.next(index);
-        sessionStorage.setItem('currentIndex', index.toString());
     }
 }

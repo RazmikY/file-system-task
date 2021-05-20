@@ -10,7 +10,7 @@ export class SortFilesPipe implements PipeTransform {
         fieldName: string,
         dir: 'desc' | 'asc'
     ): FileData[] {
-        const condition = typeof value?.[0][fieldName];
+        const condition = typeof value?.[0]?.[fieldName];
         let newValue: FileData[];
         if (dir === 'asc') {
             newValue = value.sort((a, b) => {

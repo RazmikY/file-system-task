@@ -1,0 +1,19 @@
+.container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 15px auto;
+    align-content: center;
+
+    .fa-angle-down {
+        color: lightblue;
+    }
+
+    span:last-child {
+        justify-self: center;
+        cursor: pointer;
+    }
+
+    .fa-arrow-up {
+        color: #635e5e;
+    }
+}

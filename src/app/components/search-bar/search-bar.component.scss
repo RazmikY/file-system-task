@@ -1,0 +1,27 @@
+.container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 23px auto;
+
+    input {
+        width: 100%;
+        height: 23px;
+        border: 1px solid blue;
+        margin: 0;
+        padding: 0 0 0 0.3rem;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    select {
+        width: 100%;
+        height: 23px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}

@@ -1,5 +1,5 @@
 <div class="container">
-    <div *ngFor="let data of headerData" (click)="sortBy(data)">
+    <span *ngFor="let data of headerData" (click)="sortBy(data)">
         <span class="toggleSortIcon">
             <i
                 *ngIf="prevValueId === data.id"
@@ -7,9 +7,8 @@
                 [class]="data.dir === 'desc' ? 'fa-angle-down' : 'fa-angle-up'"
             ></i>
         </span>
-
-        <div>
+        <span>
             {{ data.name }}
-        </div>
-    </div>
+        </span>
+    </span>
 </div>

@@ -1,10 +1,10 @@
 import {
     Component,
-    OnInit,
     ChangeDetectionStrategy,
     Output,
     EventEmitter,
 } from '@angular/core';
+
 import { HeaderData, SortData } from 'src/app/shared/models/header.model';
 
 @Component({
@@ -13,7 +13,7 @@ import { HeaderData, SortData } from 'src/app/shared/models/header.model';
     styleUrls: ['./header.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
     @Output() sendSortData = new EventEmitter<SortData>();
     prevValueId = -1;
     headerData: HeaderData[] = [
@@ -28,10 +28,6 @@ export class HeaderComponent implements OnInit {
         { name: 'Type', id: 3, dir: '', toggle: false, value: 'type' },
         { name: 'Size', id: 4, dir: '', toggle: false, value: 'size' },
     ];
-
-    constructor() {}
-
-    ngOnInit(): void {}
 
     sortBy(item: HeaderData) {
         this.onDirChange(item, this.headerData);

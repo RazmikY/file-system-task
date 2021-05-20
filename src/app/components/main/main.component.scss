@@ -1,0 +1,15 @@
+.container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: max-content 200px;
+    grid-gap: 1rem;
+    .left {
+        display: grid;
+        grid-template-rows: auto 27px auto;
+        grid-gap: 0.5rem;
+    }
+
+    .right {
+        display: grid;
+    }
+}

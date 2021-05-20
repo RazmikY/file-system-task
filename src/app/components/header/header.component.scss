@@ -1,28 +1,32 @@
 .container {
     width: 800px;
+    height: 100%;
     display: grid;
     grid-template-columns: 40% 25% 25% auto;
     align-content: center;
     cursor: pointer;
 
-    > div {
-        height: 27px;
-        padding-left: 0.3rem;
+    > span {
+        height: 100%;
         border-right: 1px solid black;
         display: grid;
-        grid-template-rows: 12.8px 1fr;
+        grid-template-rows: 5px 1fr;
         width: 100%;
 
+        > span {
+            padding-left: 0.3rem;
+        }
+
         .toggleSortIcon {
-            display: grid;
-            align-content: start;
-            justify-content: center;
+            text-align: center;
             i {
                 font-size: 0.8rem;
+                color: rgb(41, 40, 40);
             }
         }
 
-        // > div {
-        // }
+        &:hover {
+            background-color: rgb(179 207 248 / 88%);
+        }
     }
 }
