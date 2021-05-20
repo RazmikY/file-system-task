@@ -10,6 +10,11 @@
     "type": "folder"
   },
   {
+    "path": "univercity/faculties/mathematics",
+    "modificationDate": "2018-08-08",
+    "type": "folder"
+  },
+  {
     "path": "univercity/faculties/mathematics/subjects.txt",
     "modificationDate": "2018-08-08",
     "type": "file",
@@ -20,6 +25,11 @@
     "modificationDate": "2018-09-09",
     "type": "file",
     "size": 1.25
+  },
+  {
+    "path": "univercity/faculties/phisics",
+    "modificationDate": "2018-10-10",
+    "type": "folder"
   },
   {
     "path": "univercity/faculties/phisics/subjects.txt",

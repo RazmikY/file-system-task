@@ -1,13 +1,28 @@
 .container {
     width: 800px;
-    height: 27px;
     display: grid;
     grid-template-columns: 40% 25% 25% auto;
     align-content: center;
     cursor: pointer;
 
     > div {
+        height: 27px;
         padding-left: 0.3rem;
         border-right: 1px solid black;
+        display: grid;
+        grid-template-rows: 12.8px 1fr;
+        width: 100%;
+
+        .toggleSortIcon {
+            display: grid;
+            align-content: start;
+            justify-content: center;
+            i {
+                font-size: 0.8rem;
+            }
+        }
+
+        // > div {
+        // }
     }
 }

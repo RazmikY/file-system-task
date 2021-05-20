@@ -1,0 +1,6 @@
+<app-header (sendSortData)="sendSortData($event)"></app-header>
+<app-file-list
+    [fileData]="fileData"
+    (getNestedData)="getNestedData($event)"
+    [sortData]="sortData"
+></app-file-list>
