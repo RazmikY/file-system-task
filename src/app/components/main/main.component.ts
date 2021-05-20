@@ -82,7 +82,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
     setNewPath(path: string): void {
         const fullPath = this.coreService.currentPath$.getValue();
-        const newPath = fullPath === null ? path : fullPath + '/' + path;
+        let newPath =
+            fullPath === null || fullPath == '' ? path : fullPath + '/' + path;
         this.coreService.setCurrentPath(newPath);
     }
 
@@ -112,6 +113,7 @@ export class MainComponent implements OnInit, OnDestroy {
         const path = this.coreService.currentPath$.getValue();
         const splitedPaths = path.split('/');
         const newPath = splitedPaths[splitedPaths.length - 1];
+
         this.transformData(newPath, currentIndex);
         this.coreService.setCurrentIndex(currentIndex);
     }
@@ -153,7 +155,6 @@ export class MainComponent implements OnInit, OnDestroy {
             });
             el.path = splitedPath[index];
             newPath = splitedPath.splice(0, index).join('/');
-            // console.log(newPath, el.path, splitedPath);
             return el;
         });
         this.coreService.setCurrentPath(newPath);

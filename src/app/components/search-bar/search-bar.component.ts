@@ -6,12 +6,11 @@ import {
     Output,
     Input,
     EventEmitter,
-    OnChanges,
-    SimpleChanges,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
 import { FileData } from 'src/app/shared/models/filedData';
 
 @Component({
@@ -20,7 +19,7 @@ import { FileData } from 'src/app/shared/models/filedData';
     styleUrls: ['./search-bar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchBarComponent implements OnInit, OnChanges, OnDestroy {
+export class SearchBarComponent implements OnInit, OnDestroy {
     @Input() data: FileData[];
     @Output() findData = new EventEmitter<string>();
     @Output() navigateToCurrentItem = new EventEmitter<string>();
@@ -29,10 +28,6 @@ export class SearchBarComponent implements OnInit, OnChanges, OnDestroy {
     private sub = new Subscription();
 
     constructor() {}
-
-    ngOnChanges(changes: SimpleChanges): void {
-        // console.log(changes?.data);
-    }
 
     ngOnInit(): void {
         this.initFormControl();

@@ -1,17 +1,14 @@
 <div class="container">
     <span class="icon">
         <i class="fas fa-folder"></i>
-        <i class="fas fa-angle-right"></i>
     </span>
     <div class="path">
         <span *ngFor="let pathPart of currentPathArr; let index = index">
+            <i class="fas fa-angle-right" *ngIf="pathPart"></i>
+
             <span class="path-name" (click)="getPath(pathPart, index)">
                 {{ pathPart }}
             </span>
-            <i
-                class="fas fa-angle-right"
-                *ngIf="pathPart && index !== currentPathArr.length"
-            ></i>
         </span>
     </div>
 </div>
