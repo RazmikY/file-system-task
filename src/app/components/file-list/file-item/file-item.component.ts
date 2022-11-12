@@ -16,8 +16,8 @@ import { FileData } from 'src/app/shared/models/filedData';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileItemComponent implements OnInit {
-    @Input() fileData: FileData;
-    @Input() selected: boolean;
+    @Input() fileData: FileData | undefined;
+    @Input() selected!: boolean;
     @Output() getNestedData = new EventEmitter();
     @Output() selectCurrentData = new EventEmitter();
     constructor() {}

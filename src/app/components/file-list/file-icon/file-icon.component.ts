@@ -4,8 +4,8 @@ import {
     ChangeDetectionStrategy,
     Input,
 } from '@angular/core';
+import { FileType } from 'src/app/shared/enums';
 
-import { FileType } from 'src/app/shared/models/filedData';
 
 @Component({
     selector: 'app-file-icon',

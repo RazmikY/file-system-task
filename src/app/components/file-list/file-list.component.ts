@@ -16,8 +16,8 @@ import { SortData } from 'src/app/shared/models/header.model';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileListComponent {
-    @Input() fileData: FileData[];
-    @Input() sortData: SortData;
+    @Input() fileData!: FileData[];
+    @Input() sortData!: SortData;
     @Output() getNestedData = new EventEmitter<FileData>();
     selectedItemIndex = -1;
 

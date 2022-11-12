@@ -11,20 +11,18 @@ export class SortFilesPipe implements PipeTransform {
         dir: 'desc' | 'asc'
     ): FileData[] {
         const condition = typeof value?.[0]?.[fieldName];
-        let newValue: FileData[];
         if (dir === 'asc') {
-            newValue = value.sort((a, b) => {
+            return value.sort((a, b) => {
                 return condition === 'string'
                     ? a[fieldName]?.localeCompare(b[fieldName])
                     : a[fieldName] - b[fieldName];
             });
         } else {
-            newValue = value?.sort((a, b) => {
+            return value?.sort((a, b) => {
                 return condition === 'string'
                     ? b[fieldName]?.localeCompare(a[fieldName])
                     : b[fieldName] - a[fieldName];
             });
         }
-        return newValue;
     }
 }

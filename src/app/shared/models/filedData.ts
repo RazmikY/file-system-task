@@ -1,4 +1,4 @@
-export type FileType = 'file' | 'folder';
+import { FileType } from "../enums";
 
 export interface FileData {
     path: string;

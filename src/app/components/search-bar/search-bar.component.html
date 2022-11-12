@@ -7,7 +7,7 @@
         *ngIf="data?.length"
     >
         <option [value]="item?.path" *ngFor="let item of data">
-            {{ item?.path }} - {{ item?.type | fileType }}
+            {{ item.path }} - {{ item.type | fileType }}
         </option>
     </select>
 </div>

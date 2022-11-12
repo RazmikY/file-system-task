@@ -16,12 +16,12 @@ import { CurrentPath } from 'src/app/shared/models/currentPath.model';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UrlBarComponent implements OnChanges {
-    @Input() currentPath: string;
+    @Input() currentPath!: string;
     @Output() goToPath = new EventEmitter<CurrentPath>();
-    currentPathArr: string[];
+    currentPathArr!: string[];
 
     ngOnChanges(changes: SimpleChanges): void {
-        const { currentValue } = changes?.currentPath;
+        const { currentValue } = changes?.["currentPath"];
         this.currentPathArr = currentValue?.split('/');
     }
 

@@ -1,12 +1,6 @@
-import {
-    Component,
-    OnInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    OnDestroy,
-} from '@angular/core';
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Observable, of, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { CoreService } from 'src/app/services/core.service';
 import { CurrentPath } from 'src/app/shared/models/currentPath.model';
@@ -19,37 +13,26 @@ import { SortData } from 'src/app/shared/models/header.model';
     styleUrls: ['./main.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainComponent implements OnInit, OnDestroy {
-    fileData: FileData[];
+export class MainComponent implements OnInit {
+    fileData$: Observable<FileData[]>;
     copyData: FileData[];
     private sub = new Subscription();
     sortData: SortData;
     filteredData: FileData[];
     indexForSearchedData: number;
 
-    constructor(
-        private coreService: CoreService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private coreService: CoreService) {}
 
     ngOnInit(): void {
         this.getFileData();
     }
 
     getFileData(): void {
-        this.sub.add(
-            this.coreService
-                .getData()
-                .pipe(
-                    tap((data) => {
-                        this.fileData = data.filter(
-                            (item) => item.path.split('/').length === 1
-                        );
-                        this.copyData = JSON.parse(JSON.stringify(data));
-                        this.cd.detectChanges();
-                    })
-                )
-                .subscribe()
+        this.fileData$ = this.coreService.getData().pipe(
+            map((data) => {
+                this.copyData = JSON.parse(JSON.stringify(data));
+                return data.filter((item) => item.path.split('/').length === 1);
+            })
         );
     }
 
@@ -66,18 +49,20 @@ export class MainComponent implements OnInit, OnDestroy {
     transformData(path: string, currentIndex: number): void {
         const length = ++currentIndex;
 
-        this.fileData = JSON.parse(JSON.stringify(this.copyData))
-            .filter((elem: FileData) => {
-                return (
-                    elem.path.includes(path) &&
-                    elem.path.split('/').length === length
-                );
-            })
-            .map((elem: FileData) => {
-                let index = currentIndex;
-                elem.path = elem.path.split('/')[--index];
-                return elem;
-            });
+        this.fileData$ = of(
+            JSON.parse(JSON.stringify(this.copyData))
+                .filter((elem: FileData) => {
+                    return (
+                        elem.path.includes(path) &&
+                        elem.path.split('/').length === length
+                    );
+                })
+                .map((elem: FileData) => {
+                    let index = currentIndex;
+                    elem.path = elem.path.split('/')[--index];
+                    return elem;
+                })
+        );
     }
 
     setNewPath(path: string): void {
@@ -146,21 +131,19 @@ export class MainComponent implements OnInit, OnDestroy {
     navigateToCurrentItem(pathName: string): void {
         let index: number;
         let newPath: string;
-        this.fileData = this.filterByPath(pathName).map((el) => {
-            const splitedPath = el.path.split('/');
-            splitedPath.forEach((item: string, i: number) => {
-                if (item.includes(pathName)) {
-                    index = i;
-                }
-            });
-            el.path = splitedPath[index];
-            newPath = splitedPath.splice(0, index).join('/');
-            return el;
-        });
+        this.fileData$ = of(
+            this.filterByPath(pathName).map((el) => {
+                const splitedPath = el.path.split('/');
+                splitedPath.forEach((item: string, i: number) => {
+                    if (item.includes(pathName)) {
+                        index = i;
+                    }
+                });
+                el.path = splitedPath[index];
+                newPath = splitedPath.splice(0, index).join('/');
+                return el;
+            })
+        );
         this.coreService.setCurrentPath(newPath);
-    }
-
-    ngOnDestroy(): void {
-        this.sub.unsubscribe();
     }
 }

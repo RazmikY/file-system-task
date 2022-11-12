@@ -20,11 +20,11 @@ import { FileData } from 'src/app/shared/models/filedData';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
-    @Input() data: FileData[];
+    @Input() data!: FileData[];
     @Output() findData = new EventEmitter<string>();
     @Output() navigateToCurrentItem = new EventEmitter<string>();
-    searchField: FormControl;
-    selectedItem: FormControl;
+    searchField!: FormControl;
+    selectedItem!: FormControl;
     private sub = new Subscription();
 
     constructor() {}
