@@ -4,8 +4,9 @@
             <i
                 *ngIf="prevValueId === data.id"
                 class="fas"
-                [class]="data.dir === 'desc' ? 'fa-angle-down' : 'fa-angle-up'"
-            ></i>
+                [class]="
+                    data.dir === 'desc' ? 'fa-angle-down' : 'fa-angle-up'
+                "></i>
         </span>
         <span>
             {{ data.name }}

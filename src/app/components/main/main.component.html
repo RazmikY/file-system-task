@@ -3,21 +3,20 @@
         <div class="top">
             <app-navigation
                 (getCurrentPath)="getCurrentPath($event)"
-                (backToParent)="backToParent()"
-            ></app-navigation>
+                (backToParent)="backToParent()"></app-navigation>
         </div>
         <app-header (sendSortData)="sendSortData($event)"></app-header>
         <app-file-list
             [fileData]="fileData$ | async"
             (getNestedData)="getNestedData($event)"
-            [sortData]="sortData"
-        ></app-file-list>
+            [sortData]="sortData"></app-file-list>
     </div>
     <div class="right">
         <app-search-bar
             [data]="filteredData"
             (findData)="filterData($event)"
-            (navigateToCurrentItem)="navigateToCurrentItem($event)"
-        ></app-search-bar>
+            (navigateToCurrentItem)="
+                navigateToCurrentItem($event)
+            "></app-search-bar>
     </div>
 </div>

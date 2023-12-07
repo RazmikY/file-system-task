@@ -7,17 +7,21 @@ import {
     Input,
     EventEmitter,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { FileData } from 'src/app/shared/models/filedData';
+import { FileTypePipe } from '../../shared/pipes/fileType/file-type.pipe';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
     selector: 'app-search-bar',
     templateUrl: './search-bar.component.html',
     styleUrls: ['./search-bar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [ReactiveFormsModule, NgIf, NgFor, FileTypePipe],
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
     @Input() data!: FileData[];

@@ -2,12 +2,11 @@
     <app-file-item
         *ngFor="
             let item of fileData
-                | sortFiles: sortData?.sortFieldName:sortData?.sortDir;
+                | sortFiles: sortData?.sortFieldName : sortData?.sortDir;
             let index = index
         "
         [fileData]="item"
         (getNestedData)="openItem(item)"
         (selectCurrentData)="selectCurrentData(index)"
-        [selected]="selectedItemIndex === index"
-    ></app-file-item>
+        [selected]="selectedItemIndex === index"></app-file-item>
 </div>

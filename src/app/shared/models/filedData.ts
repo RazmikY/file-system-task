@@ -1,4 +1,4 @@
-import { FileType } from "../enums";
+import { FileType } from '../enums';
 
 export interface FileData {
     path: string;

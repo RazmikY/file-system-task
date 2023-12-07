@@ -6,12 +6,25 @@ import { CoreService } from 'src/app/services/core.service';
 import { CurrentPath } from 'src/app/shared/models/currentPath.model';
 import { FileData } from 'src/app/shared/models/filedData';
 import { SortData } from 'src/app/shared/models/header.model';
+import { AsyncPipe } from '@angular/common';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { FileListComponent } from '../file-list/file-list.component';
+import { HeaderComponent } from '../header/header.component';
+import { NavigationComponent } from '../navigation/navigation.component';
 
 @Component({
     selector: 'app-main',
     templateUrl: './main.component.html',
     styleUrls: ['./main.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        NavigationComponent,
+        HeaderComponent,
+        FileListComponent,
+        SearchBarComponent,
+        AsyncPipe,
+    ],
 })
 export class MainComponent implements OnInit {
     fileData$: Observable<FileData[]>;
@@ -29,9 +42,9 @@ export class MainComponent implements OnInit {
 
     getFileData(): void {
         this.fileData$ = this.coreService.getData().pipe(
-            map((data) => {
+            map(data => {
                 this.copyData = JSON.parse(JSON.stringify(data));
-                return data.filter((item) => item.path.split('/').length === 1);
+                return data.filter(item => item.path.split('/').length === 1);
             })
         );
     }
@@ -67,7 +80,7 @@ export class MainComponent implements OnInit {
 
     setNewPath(path: string): void {
         const fullPath = this.coreService.currentPath$.getValue();
-        let newPath =
+        const newPath =
             fullPath === null || fullPath == '' ? path : fullPath + '/' + path;
         this.coreService.setCurrentPath(newPath);
     }
@@ -77,7 +90,7 @@ export class MainComponent implements OnInit {
     }
 
     getCurrentPath({ pathPart, index }: CurrentPath): void {
-        let currentIndex = ++index;
+        const currentIndex = ++index;
         this.coreService.setCurrentIndex(currentIndex);
         this.getNewPathByIndex(index);
         this.transformData(pathPart, currentIndex);
@@ -104,7 +117,7 @@ export class MainComponent implements OnInit {
     }
 
     filterData(value: string): void {
-        this.filteredData = this.filterByPath(value).map((el) =>
+        this.filteredData = this.filterByPath(value).map(el =>
             this.splitByName(el, value)
         );
     }
@@ -132,7 +145,7 @@ export class MainComponent implements OnInit {
         let index: number;
         let newPath: string;
         this.fileData$ = of(
-            this.filterByPath(pathName).map((el) => {
+            this.filterByPath(pathName).map(el => {
                 const splitedPath = el.path.split('/');
                 splitedPath.forEach((item: string, i: number) => {
                     if (item.includes(pathName)) {

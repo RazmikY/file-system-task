@@ -1,10 +1,6 @@
-import {
-    Component,
-    OnInit,
-    ChangeDetectionStrategy,
-    Input,
-} from '@angular/core';
-import { FileType } from 'src/app/shared/enums';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+
+import { FileType } from '@shared/enums';
 
 
 @Component({
@@ -12,10 +8,8 @@ import { FileType } from 'src/app/shared/enums';
     templateUrl: './file-icon.component.html',
     styleUrls: ['./file-icon.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
 })
-export class FileIconComponent implements OnInit {
+export class FileIconComponent {
     @Input() type: FileType;
-    constructor() {}
-
-    ngOnInit(): void {}
 }

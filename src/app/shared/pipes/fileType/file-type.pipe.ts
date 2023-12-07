@@ -3,6 +3,7 @@ import { FileType } from '../../enums';
 
 @Pipe({
     name: 'fileType',
+    standalone: true,
 })
 export class FileTypePipe implements PipeTransform {
     transform(value: FileType): string {

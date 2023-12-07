@@ -8,7 +8,7 @@ describe('FileIconComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [FileIconComponent],
+            imports: [FileIconComponent],
         }).compileComponents();
     });
 

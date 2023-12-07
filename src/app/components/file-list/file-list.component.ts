@@ -8,12 +8,17 @@ import {
 
 import { FileData } from 'src/app/shared/models/filedData';
 import { SortData } from 'src/app/shared/models/header.model';
+import { SortFilesPipe } from '../../shared/pipes/sortFiles/sort-files.pipe';
+import { FileItemComponent } from './file-item/file-item.component';
+import { NgFor } from '@angular/common';
 
 @Component({
     selector: 'app-file-list',
     templateUrl: './file-list.component.html',
     styleUrls: ['./file-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgFor, FileItemComponent, SortFilesPipe],
 })
 export class FileListComponent {
     @Input() fileData!: FileData[];

@@ -7,13 +7,17 @@ import {
     SimpleChanges,
     EventEmitter,
 } from '@angular/core';
-import { CurrentPath } from 'src/app/shared/models/currentPath.model';
+import { NgFor, NgIf } from '@angular/common';
+
+import { CurrentPath } from '@shared/models';
 
 @Component({
     selector: 'app-url-bar',
     templateUrl: './url-bar.component.html',
     styleUrls: ['./url-bar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgFor, NgIf],
 })
 export class UrlBarComponent implements OnChanges {
     @Input() currentPath!: string;
@@ -21,7 +25,7 @@ export class UrlBarComponent implements OnChanges {
     currentPathArr!: string[];
 
     ngOnChanges(changes: SimpleChanges): void {
-        const { currentValue } = changes?.["currentPath"];
+        const currentValue  = changes?.['currentPath'].currentValue;
         this.currentPathArr = currentValue?.split('/');
     }
 

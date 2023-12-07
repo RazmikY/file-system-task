@@ -6,12 +6,15 @@ import {
 } from '@angular/core';
 
 import { HeaderData, SortData } from 'src/app/shared/models/header.model';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgFor, NgIf],
 })
 export class HeaderComponent {
     @Output() sendSortData = new EventEmitter<SortData>();
@@ -52,7 +55,7 @@ export class HeaderComponent {
     }
 
     private deleteOldItemValue(collection: HeaderData[]): void {
-        const findedItem = collection.find((i) => i?.id === this.prevValueId);
+        const findedItem = collection.find(i => i?.id === this.prevValueId);
         if (findedItem) {
             findedItem.dir = '';
             findedItem.toggle = false;

@@ -4,18 +4,20 @@ import {
     Output,
     EventEmitter,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
 
+import { CurrentPath } from '@shared/models';
 import { CoreService } from 'src/app/services/core.service';
-import { CurrentPath } from 'src/app/shared/models/currentPath.model';
-import { FileData } from 'src/app/shared/models/filedData';
+import { UrlBarComponent } from './url-bar/url-bar.component';
+import { BackButtonComponent } from './back-button/back-button.component';
 
 @Component({
     selector: 'app-navigation',
     templateUrl: './navigation.component.html',
     styleUrls: ['./navigation.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [BackButtonComponent, UrlBarComponent, AsyncPipe],
 })
 export class NavigationComponent {
     @Output() getCurrentPath = new EventEmitter<CurrentPath>();

@@ -1,1 +1,1 @@
-export * from './fileType.enum'
+export * from './fileType.enum';

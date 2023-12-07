@@ -21,7 +21,7 @@ export class CoreService {
         }
         return this.http
             .get<FileData[]>('../../assets/db/db.json')
-            .pipe(tap((val) => (this.fileData = val)));
+            .pipe(tap(val => (this.fileData = val)));
     }
 
     setCurrentPath(path: string): void {

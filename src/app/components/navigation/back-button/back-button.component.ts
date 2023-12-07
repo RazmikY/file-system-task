@@ -10,6 +10,7 @@ import {
     templateUrl: './back-button.component.html',
     styleUrls: ['./back-button.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
 })
 export class BackButtonComponent {
     @Output() back = new EventEmitter();

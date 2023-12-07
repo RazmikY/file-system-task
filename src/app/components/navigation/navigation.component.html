@@ -2,6 +2,5 @@
     <app-back-button (back)="onBack()"></app-back-button>
     <app-url-bar
         [currentPath]="currentPath$ | async"
-        (goToPath)="navigate($event)"
-    ></app-url-bar>
+        (goToPath)="navigate($event)"></app-url-bar>
 </div>
