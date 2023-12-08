@@ -1,12 +1,14 @@
 <div class="list">
-    <app-file-item
-        *ngFor="
-            let item of fileData
-                | sortFiles: sortData?.sortFieldName : sortData?.sortDir;
-            let index = index
-        "
-        [fileData]="item"
-        (getNestedData)="openItem(item)"
-        (selectCurrentData)="selectCurrentData(index)"
-        [selected]="selectedItemIndex === index"></app-file-item>
+    @for (
+        item of fileData
+            | sortFiles: sortData?.sortFieldName : sortData?.sortDir;
+        track item.path;
+        let index = $index
+    ) {
+        <app-file-item
+            [fileData]="item"
+            (getNestedData)="openItem(item)"
+            (selectCurrentData)="selectCurrentData(index)"
+            [selected]="selectedItemIndex === index" />
+    }
 </div>

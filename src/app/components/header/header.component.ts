@@ -5,8 +5,7 @@ import {
     EventEmitter,
 } from '@angular/core';
 
-import { HeaderData, SortData } from 'src/app/shared/models/header.model';
-import { NgFor, NgIf } from '@angular/common';
+import { HeaderData, SortData } from '@shared/models';
 
 @Component({
     selector: 'app-header',
@@ -14,7 +13,6 @@ import { NgFor, NgIf } from '@angular/common';
     styleUrls: ['./header.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgFor, NgIf],
 })
 export class HeaderComponent {
     @Output() sendSortData = new EventEmitter<SortData>();

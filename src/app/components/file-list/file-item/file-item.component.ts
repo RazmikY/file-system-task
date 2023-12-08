@@ -5,7 +5,7 @@ import {
     Output,
     EventEmitter,
 } from '@angular/core';
-import { NgIf, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 import { FileIconComponent } from '../file-icon/file-icon.component';
 import { FileData } from '@shared/models';
@@ -17,7 +17,7 @@ import { FileTypePipe } from '@shared/pipes';
     styleUrls: ['./file-item.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [FileIconComponent, NgIf, DatePipe, FileTypePipe],
+    imports: [FileIconComponent, DatePipe, FileTypePipe],
 })
 export class FileItemComponent {
     @Input() fileData: FileData | undefined;

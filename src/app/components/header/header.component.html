@@ -1,15 +1,20 @@
 <div class="container">
-    <span *ngFor="let data of headerData" (click)="sortBy(data)">
-        <span class="toggleSortIcon">
-            <i
-                *ngIf="prevValueId === data.id"
-                class="fas"
-                [class]="
-                    data.dir === 'desc' ? 'fa-angle-down' : 'fa-angle-up'
-                "></i>
+    @for (data of headerData; track data.id) {
+        <span (click)="sortBy(data)">
+            <span class="toggleSortIcon">
+                @if (prevValueId === data.id) {
+                    <i
+                        class="fas"
+                        [class]="
+                            data.dir === 'desc'
+                                ? 'fa-angle-down'
+                                : 'fa-angle-up'
+                        "></i>
+                }
+            </span>
+            <span>
+                {{ data.name }}
+            </span>
         </span>
-        <span>
-            {{ data.name }}
-        </span>
-    </span>
+    }
 </div>

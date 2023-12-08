@@ -8,12 +8,11 @@ import {
     EventEmitter,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
-import { FileData } from 'src/app/shared/models/filedData';
-import { FileTypePipe } from '../../shared/pipes/fileType/file-type.pipe';
-import { NgIf, NgFor } from '@angular/common';
+import { FileData } from '@shared/models';
+import { FileTypePipe } from '@shared/pipes';
 
 @Component({
     selector: 'app-search-bar',
@@ -21,7 +20,7 @@ import { NgIf, NgFor } from '@angular/common';
     styleUrls: ['./search-bar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [ReactiveFormsModule, NgIf, NgFor, FileTypePipe],
+    imports: [ReactiveFormsModule, FileTypePipe],
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
     @Input() data!: FileData[];
@@ -29,7 +28,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     @Output() navigateToCurrentItem = new EventEmitter<string>();
     searchField!: FormControl;
     selectedItem!: FormControl;
-    private sub = new Subscription();
+    private _destroySub$ = new Subject<void>();
 
     constructor() {}
 
@@ -44,11 +43,13 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     }
 
     searchFieldValueChanges(): void {
-        this.sub.add(
-            this.searchField.valueChanges
-                .pipe(debounceTime(500), distinctUntilChanged())
-                .subscribe((val: string) => this.findData.emit(val.trim()))
-        );
+        this.searchField.valueChanges
+            .pipe(
+                debounceTime(500),
+                distinctUntilChanged(),
+                takeUntil(this._destroySub$)
+            )
+            .subscribe((val: string) => this.findData.emit(val.trim()));
     }
 
     navigate(): void {
@@ -56,6 +57,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.sub.unsubscribe();
+        this._destroySub$.next();
+        this._destroySub$.complete();
     }
 }

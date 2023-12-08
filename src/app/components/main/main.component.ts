@@ -1,16 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable, of, Subscription } from 'rxjs';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { CoreService } from 'src/app/services/core.service';
-import { CurrentPath } from 'src/app/shared/models/currentPath.model';
-import { FileData } from 'src/app/shared/models/filedData';
-import { SortData } from 'src/app/shared/models/header.model';
-import { AsyncPipe } from '@angular/common';
+
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { FileListComponent } from '../file-list/file-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { NavigationComponent } from '../navigation/navigation.component';
+import { CurrentPath, FileData, SortData } from '@shared/models';
 
 @Component({
     selector: 'app-main',
@@ -26,22 +25,17 @@ import { NavigationComponent } from '../navigation/navigation.component';
         AsyncPipe,
     ],
 })
-export class MainComponent implements OnInit {
-    fileData$: Observable<FileData[]>;
+export class MainComponent {
+    fileData$: Observable<FileData[]> = this.getFileData();
     copyData: FileData[];
-    private sub = new Subscription();
     sortData: SortData;
     filteredData: FileData[];
     indexForSearchedData: number;
 
     constructor(private coreService: CoreService) {}
 
-    ngOnInit(): void {
-        this.getFileData();
-    }
-
-    getFileData(): void {
-        this.fileData$ = this.coreService.getData().pipe(
+    getFileData(): Observable<FileData[]> {
+        return this.coreService.getData().pipe(
             map(data => {
                 this.copyData = JSON.parse(JSON.stringify(data));
                 return data.filter(item => item.path.split('/').length === 1);

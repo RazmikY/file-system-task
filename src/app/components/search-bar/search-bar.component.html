@@ -1,12 +1,16 @@
 <div class="container">
     <input type="text" [formControl]="searchField" placeholder="Search app" />
-    <select
-        id="file-list"
-        (change)="navigate()"
-        [formControl]="selectedItem"
-        *ngIf="data?.length">
-        <option [value]="item?.path" *ngFor="let item of data">
-            {{ item.path }} - {{ item.type | fileType }}
-        </option>
-    </select>
+    @if (data?.length) {
+        <select
+            id="file-list"
+            (change)="navigate()"
+            [formControl]="selectedItem"
+        >
+            @for (item of data; track item.path) {
+                <option [value]="item?.path">
+                    {{ item.path }} - {{ item.type | fileType }}
+                </option>
+            }
+        </select>
+    }
 </div>

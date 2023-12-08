@@ -11,6 +11,8 @@
     <div>{{ fileData?.type | fileType }}</div>
     <div>
         {{ fileData?.size }}
-        <ng-container *ngIf="fileData?.size"> KB</ng-container>
+        @if (fileData?.size) {
+            KB
+        }
     </div>
 </div>

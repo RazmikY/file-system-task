@@ -49,27 +49,11 @@
       },
       {
         "file": ".eslintrc.json",
-        "hash": "5885070002638746998"
+        "hash": "6330045342559786952"
       },
       {
         "file": ".gitignore",
-        "hash": "13044518069027839699"
-      },
-      {
-        "file": ".nx/cache/file-map.json",
-        "hash": "1517941500263015661"
-      },
-      {
-        "file": ".nx/cache/lockfile.hash",
-        "hash": "6631180204732955111"
-      },
-      {
-        "file": ".nx/cache/parsed-lock-file.json",
-        "hash": "8264387344063341972"
-      },
-      {
-        "file": ".nx/cache/project-graph.json",
-        "hash": "3253496452256767998"
+        "hash": "8464432517382459038"
       },
       {
         "file": ".prettierignore",
@@ -105,11 +89,11 @@
       },
       {
         "file": "package-lock.json",
-        "hash": "9436406076040381726"
+        "hash": "13606345429839768239"
       },
       {
         "file": "package.json",
-        "hash": "2860615967087175154"
+        "hash": "2090874035962859633"
       },
       {
         "file": "src/app/app.component.html",
@@ -145,7 +129,7 @@
       },
       {
         "file": "src/app/components/file-list/file-icon/file-icon.component.ts",
-        "hash": "11406626721226369105"
+        "hash": "5147028885969568333"
       },
       {
         "file": "src/app/components/file-list/file-item/file-item.component.html",
