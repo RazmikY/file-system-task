@@ -1,6 +1,9 @@
 <div class="container">
     @for (data of headerData; track data.id) {
-        <span (click)="sortBy(data)">
+        <span
+            (click)="sortBy(data)"
+            (keyup.enter)="sortBy(data)"
+            aria-hidden="true">
             <span class="toggleSortIcon">
                 @if (prevValueId === data.id) {
                     <i

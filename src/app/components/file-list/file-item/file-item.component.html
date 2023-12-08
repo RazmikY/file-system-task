@@ -1,8 +1,10 @@
 <div
     class="file-item"
     (dblclick)="openItem()"
+    (keyup.enter)="openItem()"
     (click)="selectItem()"
-    [class.selected]="selected">
+    [class.selected]="selected"
+    aria-hidden="true">
     <div>
         <app-file-icon [type]="fileData?.type"></app-file-icon>
         {{ fileData?.path }}

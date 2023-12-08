@@ -8,7 +8,11 @@
                 @if (pathPart) {
                     <i class="fas fa-angle-right"></i>
                 }
-                <span class="path-name" (click)="getPath(pathPart, ind)">
+                <span
+                    class="path-name"
+                    (click)="getPath(pathPart, ind)"
+                    (keyup.enter)="getPath(pathPart, ind)"
+                    aria-hidden="true">
                     {{ pathPart }}
                 </span>
             </span>
